@@ -45,7 +45,7 @@ export default function Home() {
             onChange={(e) => setBusinessIdea(e.target.value)}
             required
           ></input>
-          <button type="submit" className="bg-indigo-700 px-4 py-4 rounded font-bold">
+          <button type="submit" className="bg-indigo-700 px-4 py-4 rounded font-bold" disabled={loading}>
             {loading ? (
               <>
                 <div role="status" className="flex items-center justify-center">
