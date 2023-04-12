@@ -7,11 +7,23 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { prompt } = await req.json();
+  const { prompt, count = 10 } = await req.json();
 
-  console.log(prompt);
+  const response = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [
+      { role: "system", content: "You are a creative company name generator." },
+      {
+        role: "user",
+        content: `Generate ${count} creative company names for the following idea: "${prompt}". Please respond with only the suggested company names. Don't include any other text.`,
+      },
+    ],
+  });
+
+  const message = response.data.choices[0]?.message?.content || "";
+  const suggestions = message.split("\n").flatMap((suggestion) => suggestion.match(/\d+. (.*)/)?.[1]);
 
   return NextResponse.json({
-    suggestions: ["Hello world", prompt],
+    suggestions,
   });
 }
