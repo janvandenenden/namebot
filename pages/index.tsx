@@ -1,7 +1,5 @@
-// import Image from "next/image";
-// import { Inter } from "next/font/google";
-import { useState, useRef } from 'react'
-// import { json } from "stream/consumers";
+import { useState, useRef, FormEvent } from 'react'
+import Link from 'next/link'
 
 export default function Home() {
   const [businessIdea, setBusinessIdea] = useState('')
@@ -9,7 +7,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const resultRef = useRef<null | HTMLDivElement>(null)
 
-  const submitForm = async (e) => {
+  const submitForm = async (e: FormEvent) => {
     e.preventDefault()
     setLoading(true)
     const response = await fetch('/api/suggest', {
@@ -17,7 +15,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ prompt: businessIdea, count: 10 }),
+      body: JSON.stringify({ prompt: businessIdea, count: 12 }),
     })
     const result = await response.json()
     setSuggestions(result.suggestions)
@@ -26,19 +24,18 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center min-h-screen p-2 md:p-12 lg:p-24">
+    <main className="flex flex-col items-center p-2 md:p-12 lg:p-24">
       <div className="container mx-auto">
         <div className="text-center mb-6">
-          <h1 className="text-6xl font-bold mb-3">Namebot</h1>
-          <p className="font-light text-xl">Generate a list of business names based on your idea</p>
+          <h1 className="text-6xl font-bold my-12">Create the perfect business name in a few clicks</h1>
         </div>
         <form
           className="flex flex-col mx-auto py-6 bg-slate-900 lg:p-12 p-4 mb-6 rounded lg:w-3/4"
           onSubmit={submitForm}
         >
-          <label className="mb-3 text-sm">Please enter a brief description of your business idea</label>
+          <label className="mb-3 text-sm">Enter a brief description of your business</label>
           <input
-            className="mb-6 p-1 h-12 text-black rounded"
+            className="mb-6 p-2 h-12 text-gray-800 rounded"
             placeholder="Write your business idea"
             maxLength={280}
             value={businessIdea}
@@ -74,16 +71,18 @@ export default function Home() {
           </button>
         </form>
       </div>
-      <div className="container mx-auto grid gap-3 lg:grid-cols-3" ref={resultRef}>
-        {suggestions.length > 0 && <h1 className="my-2 col-span-3 text-center text-6xl font-bold">Results</h1>}
-        {suggestions.map((s, i) => (
-          <div
-            className="rounded text-center col-span-1 bg-gradient-to-t from-gray-800 to-gray-700 flex items-center justify-center p-12 font-bold text-3xl"
-            key={i}
-          >
-            {s}
-          </div>
-        ))}
+      <div className="container mx-auto my-12" ref={resultRef}>
+        {suggestions.length > 0 && <h1 className="mb-12 text-center text-3xl font-light">Explore some Top Picks</h1>}
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          {suggestions.map((s, i) => (
+            <div
+              className="rounded text-center col-span-1 bg-gradient-to-t from-slate-800 to-slate-700 flex items-center justify-center p-12"
+              key={i}
+            >
+              <p className="font-bold break-words text-2xl">{s}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   )
