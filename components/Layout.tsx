@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
-import Link from 'next/link'
+import Nav from './Nav'
+import Footer from './Footer'
 
 interface Props {
   children: ReactNode
@@ -8,12 +9,9 @@ interface Props {
 const Layout = ({ children }: Props) => {
   return (
     <>
-      <div className="container mx-auto p-3">
-        <Link href="/" className="font-extrabold text-lg">
-          NameGenius.ai
-        </Link>
-      </div>
+      <Nav />
       <main>{children}</main>
+      <Footer />
     </>
   )
 }
