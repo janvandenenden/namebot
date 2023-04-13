@@ -1,12 +1,14 @@
 import { useState, useRef, FormEvent } from 'react'
 import Link from 'next/link'
+import useWindowSize from '@/hooks/useWindowSize'
 
 export default function Home() {
   const [businessIdea, setBusinessIdea] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const [loading, setLoading] = useState(false)
   const resultRef = useRef<null | HTMLDivElement>(null)
-
+  const size = useWindowSize()
+  const minHeight = size.height ? `${size.height - 96}px` : '100vh'
   const submitForm = async (e: FormEvent) => {
     e.preventDefault()
     setLoading(true)
@@ -24,7 +26,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center p-2 md:p-12 lg:p-24">
+    <div className="flex flex-col items-center p-2 md:p-12" style={{ minHeight: minHeight }}>
       <div className="container mx-auto">
         <div className="text-center mb-6">
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold my-6 lg:my-12">
@@ -86,6 +88,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   )
 }
