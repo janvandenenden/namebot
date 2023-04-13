@@ -12,10 +12,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const response = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
     messages: [
-      { role: 'system', content: 'You are a creative company name generator.' },
+      {
+        role: 'system',
+        content:
+          'You are a creative marketing agency with talented brand strategists who like to think outside of the box.',
+      },
       {
         role: 'user',
-        content: `Generate ${count} creative company names for the following idea: "${prompt}". Please respond with only the suggested company names. Don't include any other text.`,
+        content: `Generate ${count} creative company names, following the Igor Brand Naming Guide, for the following idea: "${prompt}". Please respond with only the suggested company names. Don't include any other text.`,
       },
     ],
   })
