@@ -27,7 +27,9 @@ export default function Home() {
     <main className="flex flex-col items-center p-2 md:p-12 lg:p-24">
       <div className="container mx-auto">
         <div className="text-center mb-6">
-          <h1 className="text-6xl font-bold my-12">Create the perfect business name in a few clicks</h1>
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold my-6 lg:my-12">
+            Create the perfect business name in a few clicks
+          </h1>
         </div>
         <form
           className="flex flex-col mx-auto py-6 bg-slate-900 lg:p-12 p-4 mb-6 rounded lg:w-3/4"
