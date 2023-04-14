@@ -40,7 +40,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-center">
             <input
               className="mb-6 md:mr-3 md:mb-0 p-2 h-14 text-gray-800 rounded flex-grow"
-              placeholder="Write your business idea"
+              placeholder="An AI powered business name generator"
               maxLength={280}
               value={businessIdea}
               onChange={(e) => setBusinessIdea(e.target.value)}
